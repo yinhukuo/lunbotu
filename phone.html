@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<title></title>
+	</head>
+	<body>
+		<div id="box" style="width: 100px; height: 100px; background: red;position: absolute;">
+				</div>
+	</body>
+	<script type="text/javascript">
+		
+		document.addEventListener('DOMContentLoaded',function(){
+			var oBox = document.querySelector('#box');
+			oBox.addEventListener('touchstart',function(ev){
+				// console.log(ev)
+				var disX = ev.targetTouches[0].clientX-this.offsetLeft;
+				var disY = ev.targetTouches[0].clientY-this.offsetTop;
+				document.addEventListener('touchmove',fnMove,false);
+				function fnMove(ev){
+					oBox.style.left = ev.targetTouches[0].clientX-disX+'px';
+					oBox.style.top = ev.targetTouches[0].clientY-disY+'px';
+				};
+				document.addEventListener('touchend',fnEnd,false);
+				function fnEnd(){
+					document.removeEventListener('touchmove',fnMove);
+					document.removeEventListener('touchend',fnEnd);
+				};
+				ev.preventDefault();
+				},false);
+		},false);
+	</script>
+</html>
